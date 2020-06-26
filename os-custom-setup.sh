@@ -35,11 +35,11 @@ case $ID in
     yum -y install yum-plugin-replace
     yum -y replace git --replace-with git2u-all
     yum -y install epel-release
-    rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org  >> $LOG 2>> $ERR
+    rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
     ;;
   fedora)
     ;;
-esac
+esac >> $LOG 2>> $ERR
 echo " ... done"
 
 echo "# install rpm packages ..."
@@ -64,7 +64,7 @@ cat > /etc/sysctl.d/k8s.conf <<EOF
 net.bridge.bridge-nf-call-ip6tables = 1
 net.bridge.bridge-nf-call-iptables = 1
 EOF
-sysctl --system
+sysctl --system >> $LOG 2>> $ERR
 
 grep -q 'locales US English' /etc/profile.d/sh.local || cat >> /etc/profile.d/sh.local
 ## locales US English ##
@@ -76,6 +76,6 @@ export LC_CTYPE=en_US.UTF-8
 
 EOF
 
-mkdir $GITDIR
+test -d $GITDIR || mkdir $GITDIR
 cd $GITDIR
-git clone $GITREPO
+git clone $GITREPO >> $LOG 2>> $ERR
