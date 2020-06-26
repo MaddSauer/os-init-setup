@@ -66,7 +66,7 @@ net.bridge.bridge-nf-call-iptables = 1
 EOF
 sysctl --system >> $LOG 2>> $ERR
 
-grep -q 'locales US English' /etc/profile.d/sh.local || cat >> /etc/profile.d/sh.local
+grep -q 'locales US English' /etc/profile.d/sh.local || cat >> /etc/profile.d/sh.local <<EOF
 ## locales US English ##
 export LANG=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
