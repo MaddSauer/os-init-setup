@@ -8,7 +8,7 @@ Default adjustments for centos / fedora systems
 # why not ansible?
 faster, simpler, easy ...
 ```bash
-sudo curl https://raw.githubusercontent.com/MaddSauer/os-init-setup/master/os-custom-setup.sh | bash
+curl https://raw.githubusercontent.com/MaddSauer/os-init-setup/master/os-custom-setup.sh | sudo bash
 ```
 
 
