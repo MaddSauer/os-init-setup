@@ -43,7 +43,7 @@ esac
 echo " ... done"
 
 echo "# install rpm packages ..."
-PKG="vim git epel-release etckeeper keepalived tmux"
+PKG="vim git etckeeper keepalived tmux"
 for p in $PKG
 do
 	$DNF -y install $p || exit 1
