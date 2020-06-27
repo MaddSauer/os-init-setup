@@ -34,7 +34,7 @@ case $ID in
     yum -y install https://centos7.iuscommunity.org/ius-release.rpm
     yum -y install yum-plugin-replace
     yum -y replace git --replace-with git2u-all
-    yum -y install epel-release
+    yum -y install epel-release 
     rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
     ;;
   fedora)
@@ -79,3 +79,20 @@ EOF
 test -d $GITDIR || mkdir $GITDIR
 cd $GITDIR
 git clone $GITREPO >> $LOG 2>> $ERR
+
+echo "# install docker"
+case $ID in
+  centos)
+    yum -y install yum-utils
+    yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+    yum -y install docker-ce docker-ce-cli containerd.io
+    systemctl enable --now docker
+    ;;
+  fedora)
+    dnf -y install dnf-plugins-core
+    dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+    dnf -y install docker-ce docker-ce-cli containerd.io
+    grubby --update-kernel=ALL --args="systemd.unified_cgroup_hierarchy=0"
+    systemctl enable --now docker
+    ;;
+esac >> $LOG 2>> $ERR
