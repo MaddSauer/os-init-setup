@@ -22,7 +22,7 @@ export DNF="dnf -y "
 [[ $ID = "fedora" ]] && VALID_OS="LGTM"
 [[ $VALID_OS = "LGTM" ]] || exit 1
 
-PKG="vim git etckeeper tcpdump bind-utils"
+PKG="vim git etckeeper tcpdump bind-utils ontainer-selinux selinux-policy-base containerd dnf-plugins-core "
 touch $LOG $ERR
 
 echo "# install rpm packages ..."
@@ -32,6 +32,7 @@ do
   $DNF install $p || exit 1
 done >> $LOG 2>> $ERR
 echo " ... done"
+rpm -i https://rpm.rancher.io/k3s-selinux-0.1.1-rc1.el7.noarch.rpm >> $LOG 2>> $ERR
 
 # vim config 
 grep -q 'tabstop' /etc/vimrc || cat >> /etc/vimrc <<EOF
@@ -61,16 +62,11 @@ EOF
 
 test -d $GITDIR || mkdir $GITDIR
 cd $GITDIR
-git clone $GITREPO >> $LOG 2>> $ERR
 
-echo "# install docker"
-case $ID in
-  fedora)
-    dnf -y install dnf-plugins-core
-    dnf -y install containerd
-    grubby --update-kernel=ALL --args="systemd.unified_cgroup_hierarchy=0"
-    systemctl enable --now docker
-    ;;
-esac >> $LOG 2>> $ERR
+git clone $GITREPO >> $LOG 2>> $ERR
+grubby --update-kernel=ALL --args="systemd.unified_cgroup_hierarchy=0" >> $LOG 2>> $ERR
+systemctl enable --now docker >> $LOG 2>> $ERR
 etcdkeeper init >> $LOG 2>> $ERR
 etcdkeeper commit >> $LOG 2>> $ERR
+
+curl -sfL https://get.k3s.io | sh -
