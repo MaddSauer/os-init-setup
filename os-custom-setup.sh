@@ -67,9 +67,10 @@ echo "# install docker"
 case $ID in
   fedora)
     dnf -y install dnf-plugins-core
-    dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
-    dnf -y install docker-ce docker-ce-cli containerd.io
+    dnf -y install containerd
     grubby --update-kernel=ALL --args="systemd.unified_cgroup_hierarchy=0"
     systemctl enable --now docker
     ;;
 esac >> $LOG 2>> $ERR
+etcdkeeper init >> $LOG 2>> $ERR
+etcdkeeper commit >> $LOG 2>> $ERR
