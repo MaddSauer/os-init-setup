@@ -1,14 +1,15 @@
 # os-init-setup
-Default adjustments for centos / fedora systems
+Default adjustments for fedora systems
 
 # Info
  * override some defaults
  * add a basic set of software (vim, git, ... )
+ * droped centos support
 
 # why not ansible?
 faster, simpler, easy ...
 ```bash
-sudo curl https://raw.githubusercontent.com/MaddSauer/os-init-setup/master/os-custom-setup.sh | bash
+curl https://raw.githubusercontent.com/MaddSauer/os-init-setup/master/os-custom-setup.sh | sudo bash
 ```
 
 
