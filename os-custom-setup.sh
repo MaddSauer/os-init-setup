@@ -69,4 +69,8 @@ systemctl enable --now docker >> $LOG 2>> $ERR
 etcdkeeper init >> $LOG 2>> $ERR
 etcdkeeper commit >> $LOG 2>> $ERR
 
-curl -sfL https://get.k3s.io | sh -
+curl -sfL https://get.k3s.io | sh - >> $LOG 2>> $ERR
+
+curl -sfL https://github.com/derailed/k9s/releases/download/v0.21.2/k9s_Linux_x86_64.tar.gz | tar xz -C /usr/local/bin/ >> $LOG 2>> $ERR
+
+
