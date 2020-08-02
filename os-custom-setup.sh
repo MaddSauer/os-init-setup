@@ -32,8 +32,8 @@ do
   $DNF install $p || exit 1
 done >> $LOG 2>> $ERR
 echo " ... done"
-etcdkeeper init >> $LOG 2>> $ERR
-etcdkeeper commit init >> $LOG 2>> $ERR
+etckeeper init >> $LOG 2>> $ERR
+etckeeper commit init >> $LOG 2>> $ERR
 
 # vim config 
 grep -q 'tabstop' /etc/vimrc || cat >> /etc/vimrc <<EOF
@@ -43,7 +43,7 @@ set softtabstop=2
 set expandtab
 set background=dark
 EOF
-etcdkeeper commit vim-config >> $LOG 2>> $ERR
+etckeeper commit vim-config >> $LOG 2>> $ERR
 
 grep -q 'HISTIGNORE' /etc/profile.d/sh.local || cat >> /etc/profile.d/sh.local <<EOF
 export LANG='en_US.UTF-8'
@@ -58,7 +58,7 @@ export HISTIGNORE='ls:ps:history'
 ##
 
 EOF
-etcdkeeper commit bash-config >> $LOG 2>> $ERR
+etckeeper commit bash-config >> $LOG 2>> $ERR
 
 #dnf-automatic
 sed -i \
@@ -67,7 +67,7 @@ sed -i \
   -e '/^email_from = root@example.org/email_from = root@$HOSTNAME' \
   /etc/dnf/automatic.conf
 systemctl  enable --now  dnf-automatic.timer
-etcdkeeper commit dnf-config >> $LOG 2>> $ERR
+etckeeper commit dnf-config >> $LOG 2>> $ERR
 
 #k3s
 rpm -i https://rpm.rancher.io/k3s-selinux-0.1.1-rc1.el7.noarch.rpm >> $LOG 2>> $ERR
@@ -77,7 +77,7 @@ net.bridge.bridge-nf-call-ip6tables = 1
 net.bridge.bridge-nf-call-iptables = 1
 EOF
 sysctl --system >> $LOG 2>> $ERR
-etcdkeeper commit k3s-k8s-config >> $LOG 2>> $ERR
+etckeeper commit k3s-k8s-config >> $LOG 2>> $ERR
 
 ssh-keygen -t ed25519 -P '' -f /root/.ssh/id_ed25519
 cat >> /root/.ssh/authorized_keys <<KEY
