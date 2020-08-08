@@ -79,6 +79,10 @@ EOF
 sysctl --system >> $LOG 2>> $ERR
 etckeeper commit k3s-k8s-config >> $LOG 2>> $ERR
 
+echo '8021q' > /etc/modules-load.d/8021q.conf
+modeprobe 8021q
+
+
 ssh-keygen -t ed25519 -P '' -f /root/.ssh/id_ed25519
 cat >> /root/.ssh/authorized_keys <<KEY
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDIz4T2XEElqFQKLbW5fmwo1nRSYURMP7MvfPlROVYBPkU/tQpal8X9wg99dYW6XtGLrqH/i4fVJYzt//1WQ4aiF4H00tJBpm76tROhLXV3XigVC46mnr362F+Nnmr9s3Q9tzBAGSzJnt1Efo9nhXnvFI5l4HqHXve0NcVM2CaftDelanuIQ9GYJJmRiVmfku9nD0AQ0g1lblTwg4Lx7S7gKjtUvQMHbeC6N9O1SvQDeVqJ2ldFNn0TM3OEXM1LioVTaYj5sftnC6sfp0wfKegTkdWel/u6YhmCLImquTSPHK43QxKnYY9dSROLmzLBcP6Ld3+3dUGJGmuWVoUUlzY8JiKduEz6B0Ux/lM5HOvUarKn8KX5ynJv3uvh2pNFr8pv2FsquYn2XknB92vSz3kfqA3DrbWcLcVPrj3KZ0/3e9PFz46Jjit6dp3rEmRCoLuPc6BFqp2ctUdxYgTjyciSnJrwSdUVAiQroIpnNCpQBTFRibjUojnDgNsV82EovBJBrOqgsscIKSxvtvdWhjgNT+Ikmab7uqLNq26GEOja5OzpAoCfRAZ0uDWyqc7z8O165wsn1LhESvdYQOhQIGWeSyi69JlzZjFy94TcuQOtNwldIhQHtbLSp0+XEHvpNl+47glzj7hum3/CPCxQHRzYo9/imEmTI9RvQe6p2laGBw== root@jaspis
