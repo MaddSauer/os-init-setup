@@ -35,6 +35,9 @@ echo " ... done"
 etckeeper init >> $LOG 2>> $ERR
 etckeeper commit init >> $LOG 2>> $ERR
 
+timedatectl set-timezone UTC
+
+
 # vim config 
 grep -q 'tabstop' /etc/vimrc || cat >> /etc/vimrc <<EOF
 set tabstop=2
