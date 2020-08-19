@@ -22,7 +22,7 @@ export DNF="dnf -y "
 [[ $ID = "fedora" ]] && VALID_OS="LGTM"
 [[ $VALID_OS = "LGTM" ]] || exit 1
 
-PKG="vim git etckeeper tcpdump bind-utils container-selinux selinux-policy-base containerd dnf-plugins-core moby-engine dnf-automatic"
+PKG="vim git etckeeper tcpdump bind-utils container-selinux selinux-policy-base containerd dnf-plugins-core moby-engine dnf-automatic snapd"
 touch $LOG $ERR
 
 echo "# install rpm packages ..."
@@ -37,6 +37,12 @@ etckeeper commit init >> $LOG 2>> $ERR
 
 timedatectl set-timezone UTC
 
+ln -s /var/lib/snapd/snap /snap
+
+# add helm via snap
+snap install helm --classic >> $LOG 2>> $ERR
+
+
 
 # vim config 
 grep -q 'tabstop' /etc/vimrc || cat >> /etc/vimrc <<EOF
@@ -48,7 +54,7 @@ set background=dark
 EOF
 etckeeper commit vim-config >> $LOG 2>> $ERR
 
-grep -q 'HISTIGNORE' /etc/profile.d/sh.local || cat >> /etc/profile.d/sh.local <<EOF
+grep -q 'alias k9s' /etc/profile.d/sh.local || cat >> /etc/profile.d/sh.local <<EOF
 export LANG='en_US.UTF-8'
 export LANGUAGE='en_US.UTF-8'
 export LC_COLLATE='C'
@@ -58,6 +64,11 @@ export HISTTIMEFORMAT="%F %T "
 export HISTSIZE='10000'
 export HISTCONTROL='ignorespace:erasedups'
 export HISTIGNORE='ls:ps:history'
+##
+
+## alias
+alias kk='k3s kubectl'
+alias k9s='k9s --kubeconfig /etc/rancher/k3s/k3s.yaml'
 ##
 
 EOF
