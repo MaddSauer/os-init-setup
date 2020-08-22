@@ -70,6 +70,7 @@ export HISTIGNORE='ls:ps:history'
 alias kk='k3s kubectl'
 alias k9s='k9s --kubeconfig /etc/rancher/k3s/k3s.yaml'
 alias helm='helm --kubeconfig /etc/rancher/k3s/k3s.yaml'
+alias cdm='cd /var/named/chroot/var/named/master/'
 ##
 
 EOF
