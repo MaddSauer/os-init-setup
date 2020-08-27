@@ -54,7 +54,7 @@ set background=dark
 EOF
 etckeeper commit vim-config >> $LOG 2>> $ERR
 
-grep -q 'alias helm' /etc/profile.d/sh.local || cat >> /etc/profile.d/sh.local <<EOF
+grep -q 'alias df' /etc/profile.d/sh.local || cat >> /etc/profile.d/sh.local <<EOF
 export LANG='en_US.UTF-8'
 export LANGUAGE='en_US.UTF-8'
 export LC_COLLATE='C'
@@ -71,6 +71,7 @@ alias kk='k3s kubectl'
 alias k9s='k9s --kubeconfig /etc/rancher/k3s/k3s.yaml'
 alias helm='helm --kubeconfig /etc/rancher/k3s/k3s.yaml'
 alias cdm='cd /var/named/chroot/var/named/master/'
+alias df='df hTP'
 ##
 
 EOF
