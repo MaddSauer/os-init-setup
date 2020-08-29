@@ -22,7 +22,7 @@ export DNF="dnf -y "
 [[ $ID = "fedora" ]] && VALID_OS="LGTM"
 [[ $VALID_OS = "LGTM" ]] || exit 1
 
-PKG="vim git etckeeper tcpdump bind-utils container-selinux selinux-policy-base containerd dnf-plugins-core moby-engine dnf-automatic snapd nmap lsof"
+PKG="vim git etckeeper tcpdump bind-utils container-selinux selinux-policy-base containerd dnf-plugins-core moby-engine dnf-automatic snapd nmap lsof gdisk"
 touch $LOG $ERR
 
 echo "# install rpm packages ..."
