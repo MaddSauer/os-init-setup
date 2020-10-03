@@ -71,8 +71,8 @@ alias kk='k3s kubectl'
 alias k9s='k9s --kubeconfig /etc/rancher/k3s/k3s.yaml'
 alias helm='helm --kubeconfig /etc/rancher/k3s/k3s.yaml'
 alias cdm='cd /var/named/chroot/var/named/master/'
-alias df='df hTP'
-alias lvs='lv -o +devices'
+alias df='df -hTP'
+alias lvs='lvs -o +devices'
 ##
 
 EOF
